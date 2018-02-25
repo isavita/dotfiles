@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/baruh/rails/chat/chat/app'
+let g:netrw_dirhist_2='/home/baruh/rails/chat/chat/app/models'
+let g:netrw_dirhist_3='/home/baruh/git/game/game_hub/app'
+let g:netrw_dirhist_4='/home/baruh/git/game/game_hub/app/models'
+let g:netrw_dirhist_5='/home/baruh/git/game/game_hub/.git'
+let g:netrw_dirhist_6='/home/baruh/Downloads/machine-learning-ex2/ex2'
