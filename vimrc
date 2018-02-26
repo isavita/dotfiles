@@ -1,6 +1,9 @@
+set number
 set relativenumber
 set expandtab
 set tabstop=2 softtabstop=2 shiftwidth=2
+set colorcolumn=120
+set foldcolumn=1
 set autoindent
 set showmatch
 set nocompatible
@@ -18,10 +21,12 @@ let base16colorspace = 256
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
-Plug 'wincent/Command-T'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/syntastic'
-Plug 'valloric/youcompleteme'
+
 Plug 'townk/vim-autoclose'
 Plug 'alvan/vim-closetag'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -40,9 +45,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <C-n> :NERDTreeToggle<CR>
 
-" Disable youcompleteme plugin
-let g:loaded_youcompleteme = 0
-
 " Close html tags
 let g:closetag_xhtml_filenames = '*.html,*.jsx,*.js'
 
@@ -59,11 +61,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Rspec mappings
-nnoremap <silent> <Leader>r :TestFile<CR>
-nnoremap <silent> <Leader>s :TestNearest<CR>
-nnoremap <silent> <Leader>l :TestLast<CR>
-nnoremap <silent> <Leader>a :TestSuite<CR>
+" Rspec settings
+let g:rspec_runner = "os_x_iterm2"
+let g:rspec_command = "!bundle exec rspec {spec}"
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 " Map : to ;
 nnoremap ; :
