@@ -26,7 +26,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/syntastic'
-
+Plug 'craigemery/vim-autotag'
+Plug 'majutsushi/tagbar'
 Plug 'townk/vim-autoclose'
 Plug 'alvan/vim-closetag'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -50,6 +51,8 @@ let g:closetag_xhtml_filenames = '*.html,*.jsx,*.js'
 
 " Paste mode settings
 set pastetoggle=<F2>
+
+nnoremap <F8> :TagbarToggle<CR>
 
 " Syntactic settings
 set statusline+=%#warningmsg#
