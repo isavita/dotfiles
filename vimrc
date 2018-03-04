@@ -1,7 +1,6 @@
-set number
-set relativenumber
+set relativenumber number numberwidth=1
 set expandtab
-set tabstop=2 softtabstop=2 shiftwidth=2
+set tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 set colorcolumn=120
 set foldcolumn=1
 set autoindent
@@ -13,15 +12,20 @@ filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
-" Change the mapleader from \ to ,
 let mapleader = "\<Space>"
+let maplocalleader = "\\"
+
+" Edit vimrc file
+nnoremap <Leader>ev :split $MYVIMRC<CR>
+" Reload vimrc file
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+
 " Access colors present in 256 colorspace
 let base16colorspace = 256
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'chriskempson/base16-vim'
-Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -32,6 +36,7 @@ Plug 'townk/vim-autoclose'
 Plug 'alvan/vim-closetag'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'vim-ruby/vim-ruby'
 Plug 'thoughtbot/vim-rspec'
 
@@ -45,6 +50,11 @@ let NERDTreeAutoDeleteBuffer = 1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-o> :NERDTreeFind<CR>
+
+" FZF settings
+nnoremap <Leader>f :FZF<CR>
+nnoremap <silent> <expr> <Leader>f (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
 
 " Close html tags
 let g:closetag_xhtml_filenames = '*.html,*.jsx,*.js'
