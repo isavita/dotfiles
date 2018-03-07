@@ -1,4 +1,4 @@
-set relativenumber number numberwidth=1
+set number numberwidth=1
 set expandtab
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 set colorcolumn=120
@@ -49,12 +49,12 @@ let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-o> :NERDTreeFind<CR>
+nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>o :NERDTreeFind<CR>
 
 " FZF settings
-nnoremap <Leader>f :FZF<CR>
-nnoremap <silent> <expr> <Leader>f (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+nnoremap <Leader>f :Files<CR>
 
 " Close html tags
 let g:closetag_xhtml_filenames = '*.html,*.jsx,*.js'
@@ -88,7 +88,7 @@ nnoremap ; :
 nnoremap j gj
 nnoremap k gk
 
-"kWindow navigation
+" Window navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
