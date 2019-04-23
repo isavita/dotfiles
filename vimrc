@@ -6,6 +6,8 @@ set foldcolumn=1
 set autoindent
 set showmatch
 set nocompatible
+set clipboard=unnamedplus
+set autoread
 syntax on
 
 filetype on           " Enable filetype detection
@@ -15,17 +17,12 @@ filetype plugin on    " Enable filetype-specific plugins
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
-" Edit vimrc file
-nnoremap <Leader>ev :split $MYVIMRC<CR>
-" Reload vimrc file
-nnoremap <Leader>sv :source $MYVIMRC<CR>
-
 " Access colors present in 256 colorspace
 let base16colorspace = 256
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'chriskempson/base16-vim'
+Plug 'danielwe/base16-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -39,6 +36,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-ruby/vim-ruby'
 Plug 'thoughtbot/vim-rspec'
+Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
@@ -47,10 +45,11 @@ colorscheme base16-gruvbox-light-hard
 " NERDTree settings
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeQuitOnOpen = 1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>o :NERDTreeFind<CR>
+nnoremap <Leader>e :NERDTreeFind<CR>
 
 " FZF settings
 command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
@@ -96,7 +95,5 @@ map <C-l> <C-w>l
 
 " Clearing highlighted searches
 nmap <silent> ,/ :nohlsearch<CR>
-" Strip trailing whitespaces
-nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" Sudo privileges with w!!
-cmap w!! w !sudo tee % >/dev/null
+" Remove whitespace on save
+autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
